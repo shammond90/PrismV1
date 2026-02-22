@@ -15,6 +15,89 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @canany(['contacts.show','contacts.view'])
+                        <x-nav-link :href="route('contacts.index')" :active="request()->routeIs('contacts.*')">
+                            {{ __('Contacts') }}
+                        </x-nav-link>
+                    @endcanany
+                    @canany(['companies.show','companies.view'])
+                        <x-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.*')">
+                            {{ __('Companies') }}
+                        </x-nav-link>
+                    @endcanany
+                    @can('shows.view')
+                        <x-nav-link :href="route('shows.index')" :active="request()->routeIs('shows.*')">
+                            {{ __('Shows') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('show_catalogues.view')
+                        <x-nav-link :href="route('show_catalogues.index')" :active="request()->routeIs('show_catalogues.*')">
+                            {{ __('Show Catalogue') }}
+                        </x-nav-link>
+                    @endcan
+                    <x-nav-link :href="route('seasons.index')" :active="request()->routeIs('seasons.*')">
+                        {{ __('Seasons') }}
+                    </x-nav-link>
+                    @canany(['venues.view','buildings.view','spaces.view'])
+                        <x-dropdown align="left" width="48">
+                            <x-slot name="trigger">
+                            <a href="#" onclick="event.preventDefault()" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 transition duration-150 ease-in-out">
+                                <div>{{ __('Locations') }}</div>
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </a>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('locations.index')">{{ __('All') }}</x-dropdown-link>
+                                <div class="border-t my-1"></div>
+                                @can('venues.view')
+                                    <x-dropdown-link :href="route('venues.index')">{{ __('Venues') }}</x-dropdown-link>
+                                @endcan
+                                @can('buildings.view')
+                                    <x-dropdown-link :href="route('buildings.index')">{{ __('Buildings') }}</x-dropdown-link>
+                                @endcan
+                                @can('spaces.view')
+                                    <x-dropdown-link :href="route('spaces.index')">{{ __('Spaces') }}</x-dropdown-link>
+                                @endcan
+                            </x-slot>
+                        </x-dropdown>
+                    @endcanany
+                    @role('Admin')
+                    <x-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                            <a href="#" onclick="event.preventDefault()" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 transition duration-150 ease-in-out">
+                                <div>{{ __('Admin') }}</div>
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('admin.user-roles.index')">
+                                {{ __('User Roles') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('admin.permissions.index')">
+                                {{ __('Permissions') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('admin.roles.index')">
+                                {{ __('Roles') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('admin.event_types.index')">
+                                {{ __('Event Types') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('admin.departments.index')">
+                                {{ __('Departments') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
+                    @endrole
                 </div>
             </div>
 
@@ -70,6 +153,54 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @canany(['contacts.show','contacts.view'])
+                <x-responsive-nav-link :href="route('contacts.index')" :active="request()->routeIs('contacts.*')">
+                    {{ __('Contacts') }}
+                </x-responsive-nav-link>
+            @endcanany
+            @can('shows.view')
+                <x-responsive-nav-link :href="route('shows.index')" :active="request()->routeIs('shows.*')">{{ __('Shows') }}</x-responsive-nav-link>
+            @endcan
+            @can('show_catalogues.view')
+                <x-responsive-nav-link :href="route('show_catalogues.index')" :active="request()->routeIs('show_catalogues.*')">{{ __('Show Catalogue') }}</x-responsive-nav-link>
+            @endcan
+            <x-responsive-nav-link :href="route('seasons.index')" :active="request()->routeIs('seasons.*')">
+                {{ __('Seasons') }}
+            </x-responsive-nav-link>
+            @canany(['companies.show','companies.view'])
+                <x-responsive-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.*')">
+                    {{ __('Companies') }}
+                </x-responsive-nav-link>
+            @endcanany
+                @canany(['venues.view','buildings.view','spaces.view'])
+                    <x-responsive-nav-link :href="route('locations.index')" :active="request()->routeIs('locations')">{{ __('All Locations') }}</x-responsive-nav-link>
+                    @can('venues.view')
+                        <x-responsive-nav-link :href="route('venues.index')" :active="request()->routeIs('venues.*')">{{ __('Venues') }}</x-responsive-nav-link>
+                    @endcan
+                    @can('buildings.view')
+                        <x-responsive-nav-link :href="route('buildings.index')" :active="request()->routeIs('buildings.*')">{{ __('Buildings') }}</x-responsive-nav-link>
+                    @endcan
+                    @can('spaces.view')
+                        <x-responsive-nav-link :href="route('spaces.index')" :active="request()->routeIs('spaces.*')">{{ __('Spaces') }}</x-responsive-nav-link>
+                    @endcan
+                @endcanany
+            @role('Admin')
+            <x-responsive-nav-link :href="route('admin.user-roles.index')" :active="request()->routeIs('admin.user-roles.*')">
+                {{ __('User Roles') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.*')">
+                {{ __('Permissions') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
+                {{ __('Roles') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.event_types.index')" :active="request()->routeIs('admin.event_types.*')">
+                {{ __('Event Types') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.*')">
+                {{ __('Departments') }}
+            </x-responsive-nav-link>
+            @endrole
         </div>
 
         <!-- Responsive Settings Options -->

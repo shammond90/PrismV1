@@ -104,6 +104,30 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('spaces', SpaceController::class);
     Route::resource('shows', ShowController::class);
     Route::resource('show_catalogues', \App\Http\Controllers\ShowCatalogueController::class);
+
+    // Show Catalogue sub-resources
+    Route::post('show_catalogues/{showCatalogue}/paperwork', [\App\Http\Controllers\CataloguePaperworkController::class, 'store'])->name('show_catalogues.paperwork.store');
+    Route::put('show_catalogues/{showCatalogue}/paperwork/{paperwork}', [\App\Http\Controllers\CataloguePaperworkController::class, 'update'])->name('show_catalogues.paperwork.update');
+    Route::delete('show_catalogues/{showCatalogue}/paperwork/{paperwork}', [\App\Http\Controllers\CataloguePaperworkController::class, 'destroy'])->name('show_catalogues.paperwork.destroy');
+    Route::get('show_catalogues/{showCatalogue}/paperwork/{paperwork}/download', [\App\Http\Controllers\CataloguePaperworkController::class, 'download'])->name('show_catalogues.paperwork.download');
+
+    Route::post('show_catalogues/{showCatalogue}/notes', [\App\Http\Controllers\CatalogueNoteController::class, 'store'])->name('show_catalogues.notes.store');
+    Route::put('show_catalogues/{showCatalogue}/notes/{note}', [\App\Http\Controllers\CatalogueNoteController::class, 'update'])->name('show_catalogues.notes.update');
+    Route::delete('show_catalogues/{showCatalogue}/notes/{note}', [\App\Http\Controllers\CatalogueNoteController::class, 'destroy'])->name('show_catalogues.notes.destroy');
+
+    Route::post('show_catalogues/{showCatalogue}/catalogue-contacts', [\App\Http\Controllers\CatalogueContactController::class, 'store'])->name('show_catalogues.catalogue_contacts.store');
+    Route::put('show_catalogues/{showCatalogue}/catalogue-contacts/{catalogueContact}', [\App\Http\Controllers\CatalogueContactController::class, 'update'])->name('show_catalogues.catalogue_contacts.update');
+    Route::delete('show_catalogues/{showCatalogue}/catalogue-contacts/{catalogueContact}', [\App\Http\Controllers\CatalogueContactController::class, 'destroy'])->name('show_catalogues.catalogue_contacts.destroy');
+
+    Route::post('show_catalogues/{showCatalogue}/catalogue-files', [\App\Http\Controllers\CatalogueFileController::class, 'store'])->name('show_catalogues.catalogue_files.store');
+    Route::put('show_catalogues/{showCatalogue}/catalogue-files/{catalogueFile}', [\App\Http\Controllers\CatalogueFileController::class, 'update'])->name('show_catalogues.catalogue_files.update');
+    Route::delete('show_catalogues/{showCatalogue}/catalogue-files/{catalogueFile}', [\App\Http\Controllers\CatalogueFileController::class, 'destroy'])->name('show_catalogues.catalogue_files.destroy');
+    Route::get('show_catalogues/{showCatalogue}/catalogue-files/{catalogueFile}/download', [\App\Http\Controllers\CatalogueFileController::class, 'download'])->name('show_catalogues.catalogue_files.download');
+
+    Route::post('show_catalogues/{showCatalogue}/production-templates', [\App\Http\Controllers\ProductionTemplateController::class, 'store'])->name('show_catalogues.production_templates.store');
+    Route::get('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}', [\App\Http\Controllers\ProductionTemplateController::class, 'show'])->name('show_catalogues.production_templates.show');
+    Route::put('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}', [\App\Http\Controllers\ProductionTemplateController::class, 'update'])->name('show_catalogues.production_templates.update');
+    Route::delete('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}', [\App\Http\Controllers\ProductionTemplateController::class, 'destroy'])->name('show_catalogues.production_templates.destroy');
     Route::resource('productions', \App\Http\Controllers\ProductionController::class);
     Route::resource('productions.events', \App\Http\Controllers\EventController::class);
     Route::resource('events', \App\Http\Controllers\EventController::class)->only(['show','update','destroy']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ShowCatalogue;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -49,7 +50,11 @@ class ShowCatalogueController extends Controller
 
     public function show(ShowCatalogue $showCatalogue)
     {
-        return view('show_catalogues.show', compact('showCatalogue'));
+        $showCatalogue->load('paperwork', 'notes', 'catalogueContacts.contact', 'files', 'productionTemplates');
+        $contacts = Contact::orderBy('last_name')->get();
+        $departments = \App\Models\Department::orderBy('name')->get();
+
+        return view('show_catalogues.show', compact('showCatalogue', 'contacts', 'departments'));
     }
 
     public function edit(ShowCatalogue $showCatalogue)

@@ -30,7 +30,10 @@ class ProductionTemplateController extends Controller
 
     public function show(ShowCatalogue $showCatalogue, ProductionTemplate $productionTemplate)
     {
-        return view('show_catalogues.production_templates.show', compact('showCatalogue', 'productionTemplate'));
+        $productionTemplate->load('paperwork', 'templateNotes', 'staffing', 'schedules', 'files');
+        $departments = \App\Models\Department::orderBy('name')->get();
+
+        return view('show_catalogues.production_templates.show', compact('showCatalogue', 'productionTemplate', 'departments'));
     }
 
     public function update(Request $request, ShowCatalogue $showCatalogue, ProductionTemplate $productionTemplate)

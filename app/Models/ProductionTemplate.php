@@ -22,4 +22,29 @@ class ProductionTemplate extends Model
     {
         return $this->belongsTo(ShowCatalogue::class);
     }
+
+    public function paperwork()
+    {
+        return $this->hasMany(TemplatePaperwork::class);
+    }
+
+    public function templateNotes()
+    {
+        return $this->hasMany(TemplateNote::class);
+    }
+
+    public function staffing()
+    {
+        return $this->hasMany(TemplateStaffing::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(TemplateSchedule::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(TemplateFile::class);
+    }
 }

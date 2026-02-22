@@ -128,6 +128,30 @@ Route::middleware(['auth'])->group(function () {
     Route::get('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}', [\App\Http\Controllers\ProductionTemplateController::class, 'show'])->name('show_catalogues.production_templates.show');
     Route::put('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}', [\App\Http\Controllers\ProductionTemplateController::class, 'update'])->name('show_catalogues.production_templates.update');
     Route::delete('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}', [\App\Http\Controllers\ProductionTemplateController::class, 'destroy'])->name('show_catalogues.production_templates.destroy');
+
+    // Production Template sub-resources
+    Route::post('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/paperwork', [\App\Http\Controllers\TemplatePaperworkController::class, 'store'])->name('production_templates.paperwork.store');
+    Route::put('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/paperwork/{paperwork}', [\App\Http\Controllers\TemplatePaperworkController::class, 'update'])->name('production_templates.paperwork.update');
+    Route::delete('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/paperwork/{paperwork}', [\App\Http\Controllers\TemplatePaperworkController::class, 'destroy'])->name('production_templates.paperwork.destroy');
+    Route::get('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/paperwork/{paperwork}/download', [\App\Http\Controllers\TemplatePaperworkController::class, 'download'])->name('production_templates.paperwork.download');
+
+    Route::post('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/template-notes', [\App\Http\Controllers\TemplateNoteController::class, 'store'])->name('production_templates.notes.store');
+    Route::put('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/template-notes/{note}', [\App\Http\Controllers\TemplateNoteController::class, 'update'])->name('production_templates.notes.update');
+    Route::delete('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/template-notes/{note}', [\App\Http\Controllers\TemplateNoteController::class, 'destroy'])->name('production_templates.notes.destroy');
+
+    Route::post('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/staffing', [\App\Http\Controllers\TemplateStaffingController::class, 'store'])->name('production_templates.staffing.store');
+    Route::put('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/staffing/{staffing}', [\App\Http\Controllers\TemplateStaffingController::class, 'update'])->name('production_templates.staffing.update');
+    Route::delete('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/staffing/{staffing}', [\App\Http\Controllers\TemplateStaffingController::class, 'destroy'])->name('production_templates.staffing.destroy');
+
+    Route::post('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/schedules', [\App\Http\Controllers\TemplateScheduleController::class, 'store'])->name('production_templates.schedules.store');
+    Route::put('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/schedules/{schedule}', [\App\Http\Controllers\TemplateScheduleController::class, 'update'])->name('production_templates.schedules.update');
+    Route::delete('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/schedules/{schedule}', [\App\Http\Controllers\TemplateScheduleController::class, 'destroy'])->name('production_templates.schedules.destroy');
+
+    Route::post('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/template-files', [\App\Http\Controllers\TemplateFileController::class, 'store'])->name('production_templates.files.store');
+    Route::put('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/template-files/{templateFile}', [\App\Http\Controllers\TemplateFileController::class, 'update'])->name('production_templates.files.update');
+    Route::delete('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/template-files/{templateFile}', [\App\Http\Controllers\TemplateFileController::class, 'destroy'])->name('production_templates.files.destroy');
+    Route::get('show_catalogues/{showCatalogue}/production-templates/{productionTemplate}/template-files/{templateFile}/download', [\App\Http\Controllers\TemplateFileController::class, 'download'])->name('production_templates.files.download');
+
     Route::resource('productions', \App\Http\Controllers\ProductionController::class);
     Route::resource('productions.events', \App\Http\Controllers\EventController::class);
     Route::resource('events', \App\Http\Controllers\EventController::class)->only(['show','update','destroy']);
